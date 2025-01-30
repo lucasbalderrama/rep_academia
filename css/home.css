@@ -26,6 +26,7 @@ nav ul li{
 nav ul li a{
     color: rgba(0, 0, 0, 0.564);
     text-decoration: none;
+    transition: all 0.3s;
 }
 
 nav ul li a:hover{
@@ -40,7 +41,7 @@ nav ul li a:hover{
 }
 
 #secao-banner img{
-    width: 1300px;
+    width: 1240px;
     border-radius: 10px;
 }
 
@@ -65,26 +66,34 @@ h1{
 
 p{
     color: rgb(255, 255, 255);
-    font-size: 19px;
+    font-size: 20px;
     text-align: justify;
     margin-bottom: 25px;
     margin-top: 25px;
     margin-left: 110px;
     width: 550px;
+    font-weight: 350;
 }
 
 button{
     cursor: pointer;
     width: 220px;
     height: 130px;
-    font-size: 30px;
-    background-color: #2BCCDB;
+    font-size: 28px;
+    background-color: #29b0bc;
     border: none;
     border-radius: 4px;
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
-    color: #ffffff;
+    color: #0000006d;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-weight: 200;
     font-style: italic;
+    transition: all 0.3s;
+}
+
+button:hover{
+    color: white;
+    font-size: 32px;
+    background-color: #21cfdf;
 }

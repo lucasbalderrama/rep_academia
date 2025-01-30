@@ -14,7 +14,7 @@
                 <li><a id="inicio" href="index.php">Início</a></li>
                 <li><a href="aluno.php">Página do aluno</a></li>
                 <li><a href="instrutor.php">Página do instrutor </a></li>
-                <li><a href="aulas.php">Aulas</a></li>
+                <li><a href="aula.php">Aulas</a></li>
             </ul>
         </nav>        
     </header>
