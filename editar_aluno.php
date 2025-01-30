@@ -13,6 +13,7 @@ if ($id > 0) {
     if (!$aluno) {
         die("Aluno não encontrado.");
     }
+    
 } else {
 }
 ?>
