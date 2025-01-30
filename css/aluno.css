@@ -1,0 +1,96 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+nav {
+    background-color: transparent;
+    height: 50px;
+}
+
+nav ul li {
+    display: inline-block;
+    margin-top: 15px;
+}
+
+nav ul {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+nav ul li a {
+    color: rgba(0, 0, 0, 0.564);
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+nav ul li a:hover {
+    color: rgb(182, 178, 178);
+}
+
+/* ------------------------ */
+
+table {
+    border-collapse: collapse;
+    margin-top: 20px;
+    margin-bottom: 150px;
+    background: white;
+    width: 1010px;
+}
+th, td {
+    padding: 20px;
+    border: 1px solid #ccc;
+    text-align: left;
+    font-size: 15px;
+    text-align: center;
+}
+
+th {
+    background-color: #31aeba;
+    color: white;
+    border: none;
+}
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.tabela h2 {
+    margin-top: 40px;
+    color: #27868f;
+    text-align: center;
+}
+
+.exibir-alunos {
+    display: flex;
+    justify-content: center;
+}
+
+.exibir-alunos a {
+    padding: 10px 20px;
+    background-color: #31aeba;
+    text-decoration: none;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.exibir-alunos a:hover {
+    background-color: #27868f;
+}
+
+.exibir-alunos .excluir {
+    padding: 10px 20px;
+    background-color: #c71a1a;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.exibir-alunos .excluir:hover {
+    background-color: #981b1b;
+}
+
+/* ------------------------ */
