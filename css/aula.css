@@ -55,6 +55,11 @@ th, td {
     text-align: center;
 }
 
+td{
+    height: 20px;
+    align-items: center;
+}
+
 th {
     background-color: #31aeba;
     color: white;
@@ -68,3 +73,80 @@ tr:nth-child(even) {
     display: flex;
     justify-content: center;
 }
+
+#edi{
+    background-color:#31aeba;
+    margin-right: 15px;
+    display: flex;
+    width: 70px;
+    height: 30px;
+    border: none;
+    border-radius: 3px;
+    color: white;
+}
+
+#exc{
+    background-color: rgb(255, 50, 50);
+    display: flex;
+    width: 70px;
+    height: 30px;
+    border: none;
+    border-radius: 3px;
+    color: white;
+}
+
+#salv{
+    display: none;
+}
+
+#canc{
+    display: none;
+}
+
+.edicao{
+    display: none;
+}
+
+/* Mostrar/esconder na parte de edição */
+
+.edicao.mostrar{
+    display: flex;
+}
+
+.edicao.esconder{
+    display: none;
+}
+
+.cont-atual.esconder{
+    display: none;
+}
+
+.cont-atual.mostrar{
+    display: block;
+}
+
+#edi.esconder{
+    display: none;
+}
+
+#edi.mostrar{
+    display: flex;
+}
+
+#exc.esconder{
+    display: none;
+}
+
+#exc.mostrar{
+    display: flex;
+}
+
+#salv.mostrar{
+    display: none;
+}
+
+#canc{
+    display: none;
+}
+
+/* fim */
