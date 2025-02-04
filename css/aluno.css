@@ -61,11 +61,16 @@ tr:nth-child(even) {
     text-align: center;
 }
 
+<<<<<<< HEAD
 .exibir-alunos {
+=======
+.exibir {
+>>>>>>> fd3326899ac54a2bc5c3e97cb0c80032e80bdbb0
     display: flex;
     justify-content: center;
 }
 
+<<<<<<< HEAD
 .exibir-alunos a {
     padding: 10px 20px;
     background-color: #31aeba;
@@ -93,4 +98,83 @@ tr:nth-child(even) {
     background-color: #981b1b;
 }
 
+=======
+#edi{
+    background-color:#31aeba;
+    margin-right: 15px;
+    display: flex;
+    width: 70px;
+    height: 30px;
+    border: none;
+    border-radius: 3px;
+    color: white;
+}
+
+#exc{
+    background-color: rgb(255, 50, 50);
+    display: flex;
+    width: 70px;
+    height: 30px;
+    border: none;
+    border-radius: 3px;
+    color: white;
+}
+
+#salv{
+    display: none;
+}
+
+#canc{
+    display: none;
+}
+
+.edicao{
+    display: none;
+}
+
+/* Mostrar/esconder na parte de edição */
+
+.edicao.mostrar{
+    display: flex;
+}
+
+.edicao.esconder{
+    display: none;
+}
+
+.cont-atual.esconder{
+    display: none;
+}
+
+.cont-atual.mostrar{
+    display: block;
+}
+
+#edi.esconder{
+    display: none;
+}
+
+#edi.mostrar{
+    display: flex;
+}
+
+#exc.esconder{
+    display: none;
+}
+
+#exc.mostrar{
+    display: flex;
+}
+
+#salv.mostrar{
+    display: none;
+}
+
+#canc{
+    display: none;
+}
+
+/* fim */
+
+>>>>>>> fd3326899ac54a2bc5c3e97cb0c80032e80bdbb0
 /* ------------------------ */
