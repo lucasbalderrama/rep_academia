@@ -67,15 +67,7 @@
                         $stmt->bind_param("i", $id);
                         
                         if ($stmt->execute()) {
-                            echo "<script>
-                            Swal.fire({
-                                title: 'Linha excluída com sucesso!',
-                                icon: 'success',
-                                confirmButtonColor: '#438e4b',
-                            }).then(function() {
-                                location.href = 'aula.php';
-                            });
-                            </script>";
+                            header("Location:aula.php");
                         } else {
                             echo "Erro ao excluir linha: ".$conexao->error;
                         }
@@ -113,15 +105,7 @@
                         $stmt3->bind_param("ssi", $novo_tipo, $nova_data, $id);
                                 
                         if ($stmt3->execute()) {
-                            echo "<script>
-                            Swal.fire({
-                                title: 'Linha atualizada com sucesso!',
-                                icon: 'success',
-                                confirmButtonColor: '#438e4b',
-                            }).then(function() {
-                                location.href = 'aula.php';
-                            });
-                            </script>";
+                            header("Location:aula.php");
                         } else {
                             echo "Erro ao editar linha: " . $conexao->error;
                         }
