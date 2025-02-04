@@ -1,65 +1,43 @@
 <?php
 include 'conexao.php';
-session_start();
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    if (isset($_POST['action'])) {
-        if ($_POST['action'] === 'delete' && isset($_POST['id_aluno'])) {
-            $id = $_POST['id_aluno'];
-            $query = "DELETE FROM aluno WHERE aluno_cod = ?";
-            $stmt = $conexao->prepare($query);
-            $stmt->bind_param("i", $id);
-
-            if ($stmt->execute()) {
-                echo "<script>
-                alert('Aluno excluído com sucesso!');
-                location.href = 'aluno.php';
-                </script>";
-            } else {
-                echo "Erro ao excluir: " . $conexao->error;
-            }
-
-            $stmt->close();
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
+    if ($_POST['action'] === 'edit' && isset($_POST['id_aluno'])) {
+        $id = $_POST['id_aluno'];
+        $nome_edit = $_POST['nome_edit'];
+        $cpf_edit = $_POST['cpf_edit'];
+        $telefone_edit = $_POST['telefone_edit'];
+        $endereco_edit = $_POST['endereco_edit'];
+        
+        $query1 = "UPDATE aluno SET aluno_nome = ? WHERE aluno_cod = ?";
+        $stmt1 = $conexao->prepare($query1);
+        $stmt1->bind_param("si", $nome_edit, $id);
+        $stmt1->execute();
+        $stmt1->close();
+        
+        $query2 = "UPDATE aluno SET aluno_endereco = ? WHERE aluno_cod = ?";
+        $stmt2 = $conexao->prepare($query2);
+        $stmt2->bind_param("si", $endereco_edit, $id);
+        $stmt2->execute();
+        $stmt2->close();
+        
+        $query3 = "UPDATE aluno SET aluno_cpf = ?, aluno_telefone = ? WHERE aluno_cod = ?";
+        $stmt3 = $conexao->prepare($query3);
+        $stmt3->bind_param("ssi", $cpf_edit, $telefone_edit, $id);
+        
+        if ($stmt3->execute()) {
+            $stmt3->close();
+            header("Location: aluno.php");
+            exit();
+        } else {
+            echo "Erro ao editar linha: " . $conexao->error;
         }
-
-        if ($_POST['action'] === 'edit' && isset($_POST['id_aluno'])) {
-            $id = $_POST['id_aluno'];
-            $novo_nome = $_POST['novo_nome'];
-            $novo_cpf = $_POST['novo_cpf'];
-            $novo_telefone = $_POST['novo_telefone'];
-            $novo_endereco = $_POST['novo_endereco'];
-
-            $query = "UPDATE aluno SET aluno_nome = ?, aluno_cpf = ?, aluno_telefone = ?, aluno_endereco = ? WHERE aluno_cod = ?";
-            $stmt = $conexao->prepare($query);
-            $stmt->bind_param("ssssi", $novo_nome, $novo_cpf, $novo_telefone, $novo_endereco, $id);
-
-            if ($stmt->execute()) {
-                echo "<script>
-                alert('Dados do aluno atualizados com sucesso!');
-                location.href = 'aluno.php';
-                </script>";
-            } else {
-                echo "Erro ao editar: " . $conexao->error;
-            }
-
-            $stmt->close();
-        }
+        
+        $stmt3->close();
     }
 }
 
-$sql = "
-    SELECT 
-        aluno.aluno_cod,
-        aluno.aluno_nome,
-        aluno.aluno_cpf, 
-        aluno.aluno_telefone,
-        aluno.aluno_endereco  
-    FROM aluno
-";
-
-$resultado = $conexao->query($sql);
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -67,104 +45,81 @@ $resultado = $conexao->query($sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="img/vitalis-logo.png" type="image/x-icon">
     <link rel="stylesheet" href="css/aluno.css">
-    <title>Vitalis - Página do aluno</title>
+    <title>Vitalis - aluno</title>
 </head>
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li><a id="inicio" href="index.php">Início</a></li>
-                <li><a href="aluno.php">Página do aluno</a></li>
-                <li><a href="instrutor.php">Página do instrutor </a></li>
-                <li><a href="aula.php">Aulas</a></li>
-            </ul>
-        </nav>        
-    </header>
-
-    <div class="exibir-alunos">
-        <div class="img-alunos-page"></div>
-        <div class="tabela">
-            <h2>Alunos:</h2>
-            <?php if ($resultado->num_rows > 0): ?>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID do aluno</th>  
-                            <th>Nome do aluno</th>
-                            <th>CPF do aluno</th>
-                            <th>Telefone do aluno</th>
-                            <th>Endereço do aluno</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php while ($row = $resultado->fetch_assoc()): ?>
-                            <tr>
-                                <td><?php echo $row['aluno_cod']; ?></td>
-                                <td><?php echo $row['aluno_nome']; ?></td>
-                                <td><?php echo $row['aluno_cpf']; ?></td>
-                                <td><?php echo $row['aluno_telefone']; ?></td>
-                                <td><?php echo $row['aluno_endereco']; ?></td>
-                                <td>
-                                    <a class="editar" href="editar_aluno.php?id=<?php echo $row['aluno_cod']; ?>">Editar</a>
-                                    <a class="excluir" href="excluir_aluno.php?id=<?php echo $row['aluno_cod']; ?>">Excluir</a>
-                                </td>
-                            </tr>
-                            <form method="POST" action="">
-                                <input type="hidden" name="action" value="edit">
-                                <input type="hidden" name="id_aluno" value="<?php echo $row['aluno_cod']; ?>">
-                                <tr>
-                                    <td class="cont-atual"><?php echo $row['aluno_cod']; ?></td>
-                                    <td class="cont-atual"><?php echo $row['aluno_nome']; ?>
-                                        <input class="edicao esconder" name="novo_nome" type="text" value="<?php echo $row['aluno_nome']; ?>" required>
-                                    </td>
-                                    <td class="cont-atual"><?php echo $row['aluno_cpf']; ?>
-                                        <input class="edicao esconder" name="novo_cpf" type="text" value="<?php echo $row['aluno_cpf']; ?>" required>
-                                    </td>
-                                    <td class="cont-atual"><?php echo $row['aluno_telefone']; ?>
-                                        <input class="edicao esconder" name="novo_telefone" type="text" value="<?php echo $row['aluno_telefone']; ?>" required>
-                                    </td>
-                                    <td class="cont-atual"><?php echo $row['aluno_endereco']; ?>
-                                        <input class="edicao esconder" name="novo_endereco" type="text" value="<?php echo $row['aluno_endereco']; ?>" required>
-                                    </td>
-                                    <td>
-                                        <button class="salvar esconder" type="submit">Salvar</button>
-                                        <button class="cancelar esconder" type="button">Cancelar</button>
-                                        <button class="editar" type="button">Editar</button>
-                                        <button class="excluir" type="submit" name="action" value="delete">Excluir</button>
-                                    </td>
-                                </tr>
-                            </form>
-                        <?php endwhile; ?>
-                    </tbody>
-                </table>
-            <?php endif; ?>
-        </div>
+<header>
+    <nav>
+        <ul>
+            <li><a id="inicio" href="index.php">Início</a></li>
+            <li><a href="aluno.php">Página do aluno</a></li>
+            <li><a href="instrutor.php">Página do instrutor </a></li>
+            <li><a href="aula.php">aluno</a></li>
+        </ul>
+    </nav>        
+</header>
+<main>
+    <?php
+    $sql_mostrar = "SELECT aluno.aluno_cod, aluno.aluno_nome, aluno.aluno_cpf, aluno.aluno_telefone, aluno.aluno_endereco FROM aluno";
+    $mostrar = $conexao->query($sql_mostrar);
+    ?>
+    <div class='exibir'>
+        <?php
+        while($row = $mostrar->fetch_assoc()){
+            echo "
+            <form action='' method='POST' class='info-aluno'>
+                <input type='hidden' name='action' value='edit'>
+                <input type='hidden' name='id_aluno' value='".$row['aluno_cod']."'>
+                <div class='cont-atual'>
+                    <p>Aluno: ".$row['aluno_nome']."</p>
+                    <p>CPF do aluno: ".$row['aluno_cpf']."</p>
+                    <p>Telefone: ".$row['aluno_telefone']."</p>
+                    <p>Endereço: ".$row['aluno_endereco']."</p>
+                </div>
+                <div class='edicao'>
+                    <input id='n-nome' name='nome_edit' type='text' value='".$row['aluno_nome']."' required>
+                    <input id='n-tipo' name='cpf_edit' type='text' value='".$row['aluno_cpf']."' required>
+                    <input id='n-telefone' name='telefone_edit' type='text' value='".$row['aluno_telefone']."' required>
+                    <input id='n-inst' name='endereco_edit' type='text' value='".$row['aluno_endereco']."' required>
+                </div>
+                <button id='salv' type='submit'>Salvar</button>
+                <button id='canc' type='button'>Cancelar</button>
+                <button id='edi' type='button'>Editar</button>
+                <button id='exc' type='submit' name='action' value='delete'>Excluir</button>
+            </form>";
+        }
+        ?>
     </div>
-    <script>
-        document.querySelectorAll(".editar").forEach((botao, index) => {
-        botao.addEventListener("click", () => {
-            let row = botao.closest("tr");
-            row.querySelectorAll(".edicao").forEach(input => input.classList.toggle("mostrar"));
-            row.querySelectorAll(".cont-atual").forEach(span => span.classList.toggle("esconder"));
-            row.querySelector(".salvar").classList.toggle("mostrar");
-            row.querySelector(".cancelar").classList.toggle("mostrar");
-            botao.classList.toggle("esconder");
-            row.querySelector(".excluir").classList.toggle("esconder");
+</main>
+<script>
+    let butEdit = document.querySelectorAll('#edi');
+    let edicao = document.querySelectorAll('.edicao');
+    let conteudo = document.querySelectorAll('.cont-atual');
+    let butExc = document.querySelectorAll('#exc');
+    let butCanc = document.querySelectorAll('#canc');
+    let butSalv = document.querySelectorAll('#salv');
+
+    butCanc.forEach((botao, index) => {
+        botao.addEventListener('click', () => {
+            edicao[index].classList.toggle('esconder');
+            conteudo[index].classList.toggle('mostrar');
+            butEdit[index].classList.toggle('mostrar');
+            butExc[index].classList.toggle('mostrar');
+            butSalv[index].classList.toggle('esconder');
+            butCanc[index].classList.toggle('esconder');
         });
     });
 
-    document.querySelectorAll(".cancelar").forEach((botao, index) => {
-        botao.addEventListener("click", () => {
-            let row = botao.closest("tr");
-            row.querySelectorAll(".edicao").forEach(input => input.classList.toggle("esconder"));
-            row.querySelectorAll(".cont-atual").forEach(span => span.classList.toggle("mostrar"));
-            row.querySelector(".salvar").classList.toggle("esconder");
-            row.querySelector(".cancelar").classList.toggle("esconder");
-            row.querySelector(".editar").classList.toggle("mostrar");
-            row.querySelector(".excluir").classList.toggle("mostrar");
+    butEdit.forEach((botao, index) => {
+        botao.addEventListener('click', () => {
+            edicao[index].classList.toggle('mostrar');
+            conteudo[index].classList.toggle('esconder');
+            butEdit[index].classList.toggle('esconder');
+            butExc[index].classList.toggle('esconder');
+            butSalv[index].classList.toggle('mostrar');
+            butCanc[index].classList.toggle('mostrar');
         });
     });
-    </script>
+</script>
 </body>
 </html>

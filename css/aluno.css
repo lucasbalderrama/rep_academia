@@ -1,42 +1,51 @@
-* {
+*{
     margin: 0;
     padding: 0;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-nav {
+body{
+    background-color: rgb(255, 255, 255);
+}
+
+main{
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+nav{
     background-color: transparent;
     height: 50px;
 }
 
-nav ul li {
-    display: inline-block;
-    margin-top: 15px;
-}
-
-nav ul {
+nav ul{
     display: flex;
     justify-content: space-evenly;
 }
 
-nav ul li a {
+nav ul li{
+    display: inline-block;
+    margin-top: 15px;
+}
+
+nav ul li a{
     color: rgba(0, 0, 0, 0.564);
     text-decoration: none;
     transition: all 0.3s;
 }
 
-nav ul li a:hover {
+nav ul li a:hover{
     color: rgb(182, 178, 178);
 }
-
-/* ------------------------ */
 
 table {
     border-collapse: collapse;
     margin-top: 20px;
     margin-bottom: 150px;
     background: white;
-    width: 1010px;
+    width: 1000px;
 }
 th, td {
     padding: 20px;
@@ -44,6 +53,11 @@ th, td {
     text-align: left;
     font-size: 15px;
     text-align: center;
+}
+
+td{
+    height: 20px;
+    align-items: center;
 }
 
 th {
@@ -55,54 +69,44 @@ tr:nth-child(even) {
     background-color: #f9f9f9;
 }
 
-.tabela h2 {
-    margin-top: 40px;
-    color: #27868f;
-    text-align: center;
-}
-
-<<<<<<< HEAD
-.exibir-alunos {
-=======
 .exibir {
->>>>>>> fd3326899ac54a2bc5c3e97cb0c80032e80bdbb0
-    display: flex;
-    justify-content: center;
+    background-color: #31aeba69;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    width: 70%;
+    padding-top: 40px;
+    padding-bottom: 20px;
+    border-radius: 8px;
+    margin-bottom: 50px;
+    margin-top: 20px;
 }
 
-<<<<<<< HEAD
-.exibir-alunos a {
-    padding: 10px 20px;
-    background-color: #31aeba;
-    text-decoration: none;
-    color: white;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+.info-aluno{
+    background-color: rgb(255, 255, 255);
+    justify-self: center;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 4px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    width: 400px;
 }
 
-.exibir-alunos a:hover {
-    background-color: #27868f;
+.info-instrutor{
+    background-color: rgb(255, 255, 255);
+    justify-self: center;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 4px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    width: 400px;
 }
 
-.exibir-alunos .excluir {
-    padding: 10px 20px;
-    background-color: #c71a1a;
-    color: white;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.exibir-alunos .excluir:hover {
-    background-color: #981b1b;
-}
-
-=======
 #edi{
     background-color:#31aeba;
     margin-right: 15px;
     display: flex;
+    justify-content: center;
+    align-items: center;
     width: 70px;
     height: 30px;
     border: none;
@@ -113,6 +117,8 @@ tr:nth-child(even) {
 #exc{
     background-color: rgb(255, 50, 50);
     display: flex;
+    justify-content: center;
+    align-items: center;
     width: 70px;
     height: 30px;
     border: none;
@@ -136,6 +142,7 @@ tr:nth-child(even) {
 
 .edicao.mostrar{
     display: flex;
+    flex-direction: column;
 }
 
 .edicao.esconder{
@@ -167,14 +174,19 @@ tr:nth-child(even) {
 }
 
 #salv.mostrar{
+    display: inline-block;
+}
+
+#salv.esconder{
     display: none;
 }
 
-#canc{
+#canc.mostrar{
+    display: inline-block;
+}
+
+#canc.esconder{
     display: none;
 }
 
 /* fim */
-
->>>>>>> fd3326899ac54a2bc5c3e97cb0c80032e80bdbb0
-/* ------------------------ */

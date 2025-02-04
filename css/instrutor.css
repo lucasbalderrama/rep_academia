@@ -1,42 +1,51 @@
-* {
+*{
     margin: 0;
     padding: 0;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-nav {
+body{
+    background-color: rgb(255, 255, 255);
+}
+
+main{
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+nav{
     background-color: transparent;
     height: 50px;
 }
 
-nav ul li {
-    display: inline-block;
-    margin-top: 15px;
-}
-
-nav ul {
+nav ul{
     display: flex;
     justify-content: space-evenly;
 }
 
-nav ul li a {
+nav ul li{
+    display: inline-block;
+    margin-top: 15px;
+}
+
+nav ul li a{
     color: rgba(0, 0, 0, 0.564);
     text-decoration: none;
     transition: all 0.3s;
 }
 
-nav ul li a:hover {
+nav ul li a:hover{
     color: rgb(182, 178, 178);
 }
-
-/* ------------------------ */
 
 table {
     border-collapse: collapse;
     margin-top: 20px;
     margin-bottom: 150px;
     background: white;
-    width: 560px;
+    width: 1000px;
 }
 th, td {
     padding: 20px;
@@ -45,6 +54,12 @@ th, td {
     font-size: 15px;
     text-align: center;
 }
+
+td{
+    height: 20px;
+    align-items: center;
+}
+
 th {
     background-color: #31aeba;
     color: white;
@@ -54,47 +69,104 @@ tr:nth-child(even) {
     background-color: #f9f9f9;
 }
 
-.tabela h2 {
-    margin-top: 40px;
-    color: #27868f;
-    text-align: center;
+.exibir {
+    background-color: rgba(0, 0, 0, 0);
 }
 
-.exibir-instrutor {
+.info-instrutor{
+    background-color: rgb(255, 255, 255);
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 4px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+#edi{
+    background-color:#31aeba;
+    margin-right: 15px;
     display: flex;
-    justify-content: space-around;
-    gap: 300px;
-}
-
-.exibir-instrutor a {
-    padding: 10px 20px;
-    background-color: #31aeba;
-    color: white;
-    text-decoration: none;
+    justify-content: center;
+    align-items: center;
+    width: 70px;
+    height: 30px;
     border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.exibir-instrutor a:hover {
-    background-color: #27868f;
-}
-
-.exibir-instrutor .excluir {
-    padding: 10px 20px;
-    background-color: #c71a1a;
+    border-radius: 3px;
     color: white;
+}
+
+#exc{
+    background-color: rgb(255, 50, 50);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70px;
+    height: 30px;
     border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+    border-radius: 3px;
+    color: white;
 }
 
-.exibir-instrutor .excluir:hover {
-    background-color: #981b1b;
-}
-
-/* ------------------------ */
-
-.modal {
+#salv{
     display: none;
 }
+
+#canc{
+    display: none;
+}
+
+.edicao{
+    display: none;
+}
+
+/* Mostrar/esconder na parte de edição */
+
+.edicao.mostrar{
+    display: flex;
+    flex-direction: column;
+}
+
+.edicao.esconder{
+    display: none;
+}
+
+.cont-atual.esconder{
+    display: none;
+}
+
+.cont-atual.mostrar{
+    display: block;
+}
+
+#edi.esconder{
+    display: none;
+}
+
+#edi.mostrar{
+    display: flex;
+}
+
+#exc.esconder{
+    display: none;
+}
+
+#exc.mostrar{
+    display: flex;
+}
+
+#salv.mostrar{
+    display: inline-block;
+}
+
+#salv.esconder{
+    display: none;
+}
+
+#canc.mostrar{
+    display: inline-block;
+}
+
+#canc.esconder{
+    display: none;
+}
+
+/* fim */
