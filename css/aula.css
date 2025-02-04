@@ -70,14 +70,23 @@ tr:nth-child(even) {
 }
 
 .exibir {
-    display: flex;
-    justify-content: center;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.info-aula{
+    background-color: rgb(255, 255, 255);
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 4px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 #edi{
     background-color:#31aeba;
     margin-right: 15px;
     display: flex;
+    justify-content: center;
+    align-items: center;
     width: 70px;
     height: 30px;
     border: none;
@@ -88,6 +97,8 @@ tr:nth-child(even) {
 #exc{
     background-color: rgb(255, 50, 50);
     display: flex;
+    justify-content: center;
+    align-items: center;
     width: 70px;
     height: 30px;
     border: none;
@@ -111,6 +122,7 @@ tr:nth-child(even) {
 
 .edicao.mostrar{
     display: flex;
+    flex-direction: column;
 }
 
 .edicao.esconder{
@@ -142,10 +154,18 @@ tr:nth-child(even) {
 }
 
 #salv.mostrar{
+    display: inline-block;
+}
+
+#salv.esconder{
     display: none;
 }
 
-#canc{
+#canc.mostrar{
+    display: inline-block;
+}
+
+#canc.esconder{
     display: none;
 }
 

@@ -28,126 +28,140 @@
         $mostrar = $conexao->query($sql_mostrar);
         ?>
         <div class='exibir'>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Aluno</th>
-                        <th>Aula</th>
-                        <th>Data</th>
-                        <th>Instrutor</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    
-                        <?php
-                        while($row = $mostrar->fetch_assoc()){
-                            echo "
-                            <form action='' method='POST'>
-                                <input type='hidden' name='action' value='edit'>
-                                <input type='hidden' name='id_aula' value='".$row['aula_cod']."'>
-                                <tr>
-                                    <td class='cont-atual'>".$row['aluno_nome']."<input class='edicao' id='n-nome' name='novo_nome' type='text' value='".$row['aluno_nome']."' required></td>
-                                    <td class='cont-atual'>".$row['aula_tipo']."<input class='edicao' id='n-tipo' name='novo_tipo' type='text' value='".$row['aula_tipo']."' required></td>
-                                    <td class='cont-atual'>".$row['aula_data']."<input class='edicao' id='n-data' name='nova_data' type='date' value='".$row['aula_data']."' required></td>
-                                    <td class='cont-atual'>".$row['instrutor_nome']."<input class='edicao' id='n-inst' name='novo_inst' type='text' value='".$row['instrutor_nome']."' required></td>
-                                    <td>
-                                        <button id='salv' type='submit'>Salvar</button>
-                                        <button id='canc' type='button'>Cancelar</button>
-                                        <button id='edi' type='button'>Editar</button>
-                                        <button id='exc' type='submit' name='action' value='delete'>Excluir</button>
-                                    </td>
-                                </tr>";
-                        }
+            <?php
+            while($row = $mostrar->fetch_assoc()){
+                echo "
+                <form action='' method='POST' class='info-aula'>
+                    <input type='hidden' name='action' value='edit'>
+                    <input type='hidden' name='id_aula' value='".$row['aula_cod']."'>
 
-                        if ($_SERVER["REQUEST_METHOD"] === "POST") {
-                            if (isset($_POST['action'])) {
-                                if ($_POST['action'] === 'delete' && isset($_POST['id_aula'])) {
-                                    $id = $_POST['id_aula'];
-                                    $query = "DELETE FROM aula WHERE aula_cod = ?"; 
-                                    $stmt = $conexao->prepare($query);
-                                    $stmt->bind_param("i", $id);
-                        
-                                    if ($stmt->execute()) {
-                                        echo "<script>
-                                        Swal.fire({
-                                            title: 'Linha excluída com sucesso!',
-                                            icon: 'success',
-                                            confirmButtonColor: '#438e4b',
-                                        }).then(function() {
-                                            location.href = 'aula.php';
-                                        });
-                                        </script>";
-                                    } else {
-                                        echo "Erro ao excluir linha: ".$conexao->error;
-                                    }
-                        
-                                    $stmt->close();
-                                }
-                        
-                                if ($_POST['action'] === 'edit' && isset($_POST['id_aula'])) {
-                                    $id = $_POST['id_aula'];
-                                    $novo_aluno = $_POST['novo_aluno'];
-                                    $novo_tipo = $_POST['novo_tipo'];
-                                    $nova_data = $_POST['nova_data'];
-                                    $nova_inst = $_POST['nova_inst'];
-                        
-                                    $query = "UPDATE aula SET aluno_nome = ?, aula_tipo = ?, aula_data = ?, instrutor_nome = ? WHERE aula_cod = ?";
-                                    $stmt = $conexao->prepare($query);
-                                    $stmt->bind_param("ssdsi", $novo_aluno, $novo_tipo, $nova_data, $novo_inst, $id);
-                        
-                                    if ($stmt->execute()) {
-                                        echo "<script>
-                                        Swal.fire({
-                                            title: 'Linha atualizada com sucesso!',
-                                            icon: 'success',
-                                            confirmButtonColor: '#438e4b',
-                                        }).then(function() {
-                                            location.href = 'aula.php';
-                                        });
-                                        </script>";
-                                    } else {
-                                        echo "Erro ao editar linha: ".$conexao->error;
-                                    }
-                        
-                                    $stmt->close();
-                                }
-                            }
-                        }
-                        ?>
-                    </form>
-                    <script>
-                        let butEdit = document.querySelectorAll('#edi')
-                        let edicao = document.querySelectorAll('.edicao')
-                        let conteudo = document.querySelectorAll('.cont-atual')
-                        let butExc = document.querySelectorAll('#exc')
-                        let butCanc = document.querySelectorAll('#canc')
-                        let butSalv = document.querySelectorAll('#salv')
+                                
 
-                        butCanc.forEach((botao, index) => {
-                            botao.addEventListener('click', () => {
-                                edicao[index].classList.toggle('esconder');
-                                conteudo[index].classList.toggle('mostrar');
-                                butEdit[index].classList.toggle('mostrar');
-                                butExc[index].classList.toggle('mostrar');
-                                butSalv[index].classList.toggle('esconder');
-                                butCanc[index].classList.toggle('esconder');
-                            })
-                        })
+                    <div class='cont-atual'>
+                        <p>Aluno: ".$row['aluno_nome']."</p>
+                        <p>Aula: ".$row['aula_tipo']."</p>
+                        <p>Data: ".$row['aula_data']."</p>
+                        <p>Instrutor: ".$row['instrutor_nome']."</p>
+                    </div>
 
-                        butEdit.forEach((botao, index) => {
-                            botao.addEventListener('click', () => {
-                                edicao[index].classList.toggle('mostrar');
-                                conteudo[index].classList.toggle('esconder');
-                                butEdit[index].classList.toggle('esconder');
-                                butExc[index].classList.toggle('esconder');
-                                butSalv[index].classList.toggle('mostrar');
-                                butCanc[index].classList.toggle('mostrar');
+                    <div class='edicao'>
+                        <input id='n-nome' name='novo_aluno' type='text' value='".$row['aluno_nome']."' required>
+                        <input id='n-tipo' name='novo_tipo' type='text' value='".$row['aula_tipo']."' required>
+                        <input id='n-data' name='nova_data' type='date' value='".$row['aula_data']."' required>
+                        <input id='n-inst' name='novo_inst' type='text' value='".$row['instrutor_nome']."' required>
+                    </div>
+
+                    <button id='salv' type='submit'>Salvar</button>
+                    <button id='canc' type='button'>Cancelar</button>
+                    <button id='edi' type='button'>Editar</button>
+                    <button id='exc' type='submit' name='action' value='delete'>Excluir</button>
+                </form>";
+            }
+
+            if ($_SERVER["REQUEST_METHOD"] === "POST") {
+                if (isset($_POST['action'])) {
+                    if ($_POST['action'] === 'delete' && isset($_POST['id_aula'])) {
+                        $id = $_POST['id_aula'];
+                        $query = "DELETE FROM aula WHERE aula_cod = ?"; 
+                        $stmt = $conexao->prepare($query);
+                        $stmt->bind_param("i", $id);
+                        
+                        if ($stmt->execute()) {
+                            echo "<script>
+                            Swal.fire({
+                                title: 'Linha excluída com sucesso!',
+                                icon: 'success',
+                                confirmButtonColor: '#438e4b',
+                            }).then(function() {
+                                location.href = 'aula.php';
                             });
-                        });
-                    </script>
-                </tbody>
-            </table>
+                            </script>";
+                        } else {
+                            echo "Erro ao excluir linha: ".$conexao->error;
+                        }
+                        
+                        $stmt->close();
+                    }
+                        
+                    if ($_POST['action'] === 'edit' && isset($_POST['id_aula'])) {
+                        $id = $_POST['id_aula'];
+                        $novo_aluno = $_POST['novo_aluno'];
+                        $novo_tipo = $_POST['novo_tipo'];
+                        $nova_data = $_POST['nova_data'];
+                        $novo_inst = $_POST['novo_inst'];
+                                
+                        $query1 = "UPDATE aluno 
+                                   JOIN aula ON aluno.aluno_cod = aula.fk_aluno_cod 
+                                    SET aluno.aluno_nome = ? 
+                                    WHERE aula.aula_cod = ?";
+                        $stmt1 = $conexao->prepare($query1);
+                        $stmt1->bind_param("si", $novo_aluno, $id);
+                        $stmt1->execute();
+                        $stmt1->close();
+                                
+                        $query2 = "UPDATE instrutor 
+                                    JOIN aula ON instrutor.instrutor_cod = aula.fk_instrutor_cod 
+                                    SET instrutor.instrutor_nome = ? 
+                                    WHERE aula.aula_cod = ?";
+                        $stmt2 = $conexao->prepare($query2);
+                        $stmt2->bind_param("si", $novo_inst, $id);
+                        $stmt2->execute();
+                        $stmt2->close();
+                                
+                        $query3 = "UPDATE aula SET aula_tipo = ?, aula_data = ? WHERE aula_cod = ?";
+                        $stmt3 = $conexao->prepare($query3);
+                        $stmt3->bind_param("ssi", $novo_tipo, $nova_data, $id);
+                                
+                        if ($stmt3->execute()) {
+                            echo "<script>
+                            Swal.fire({
+                                title: 'Linha atualizada com sucesso!',
+                                icon: 'success',
+                                confirmButtonColor: '#438e4b',
+                            }).then(function() {
+                                location.href = 'aula.php';
+                            });
+                            </script>";
+                        } else {
+                            echo "Erro ao editar linha: " . $conexao->error;
+                        }
+                                
+                        $stmt3->close();
+                    }                                                            
+                }
+            }
+            ?>
+        
+        <script>
+            let butEdit = document.querySelectorAll('#edi')
+            let edicao = document.querySelectorAll('.edicao')
+            let conteudo = document.querySelectorAll('.cont-atual')
+            let butExc = document.querySelectorAll('#exc')
+            let butCanc = document.querySelectorAll('#canc')
+            let butSalv = document.querySelectorAll('#salv')
+
+            butCanc.forEach((botao, index) => {
+                botao.addEventListener('click', () => {
+                    edicao[index].classList.toggle('esconder');
+                    conteudo[index].classList.toggle('mostrar');
+                    butEdit[index].classList.toggle('mostrar');
+                    butExc[index].classList.toggle('mostrar');
+                    butSalv[index].classList.toggle('esconder');
+                    butCanc[index].classList.toggle('esconder');
+                })
+            })
+
+            butEdit.forEach((botao, index) => {
+                botao.addEventListener('click', () => {
+                    edicao[index].classList.toggle('mostrar');
+                    conteudo[index].classList.toggle('esconder');
+                    butEdit[index].classList.toggle('esconder');
+                    butExc[index].classList.toggle('esconder');
+                    butSalv[index].classList.toggle('mostrar');
+                    butCanc[index].classList.toggle('mostrar');
+                });
+            });
+        </script>
         </div>
     </main>
 </body>
